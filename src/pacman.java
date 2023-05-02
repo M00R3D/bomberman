@@ -50,7 +50,7 @@ public class pacman {
 	public elemento wall_14=new elemento(110+262+60,250,160,10,Color.blue);
 
 	public elemento wall_up=new elemento(0,-10,10,470,Color.blue);
-	public elemento wall_dn=new elemento(0,440,10,470,Color.blue);
+	public elemento wall_dn=new elemento(-20,445,10,500,Color.blue);
 
 	
 	public elemento walls[]= {wall_1,wall_2,wall_2_2,wall_2_3,wall_3,wall_4,wall_5,wall_6,wall_7,wall_8,
@@ -123,6 +123,8 @@ public class pacman {
 				System.out.println("  x:"+pacman.x+"  y:"+pacman.y);
 				panel_central.repaint();
 				int spd=3;
+				if(pacman.x<-20) {pacman.x=470;}
+				if(pacman.x>470) {pacman.x=-20;}
 				switch(e.getKeyCode()) 
 				{
 				case 87://  w
