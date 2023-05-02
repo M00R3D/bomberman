@@ -20,6 +20,8 @@ public class pacman {
 	public int pac_x=220,pac_y=220;
 	public elemento pacman=new elemento(pac_x,pac_y,20,20,Color.yellow);
 	public elemento wall_1=new elemento(20,20,190,10,Color.blue);
+	public elemento wall_2=new elemento(80,20,190,10,Color.blue);
+	public elemento walls[]= {wall_1,wall_2};
 	/**
 	 * Launch the application.
 	 */
@@ -101,26 +103,30 @@ public class pacman {
 					pacman.x+=spd;
 					break;
 				}
-				if(pacman.colision(wall_1)) 
-	            {
-	            	System.out.println("choca");
-	            	switch(e.getKeyCode()) 
-					{
-					case 87://  w
-						pacman.y+=spd;
-						break;
-					case 65: //  a
-						pacman.x+=spd;
-						break;
-					case 83: //  s
-						pacman.y-=spd;
-						break;
-					case 68: //  d
-						pacman.x-=spd;
-						break;
-					}
-	            }	
 				
+				for(int l = 0;l<walls.length;l++)
+				{
+					if(pacman.colision(walls[l])) 
+		            {	
+		            	System.out.println("choca");
+		            	switch(e.getKeyCode()) 
+						{
+						case 87://  w
+							pacman.y+=spd;
+							break;
+						case 65: //  a
+							pacman.x+=spd;
+							break;
+						case 83: //  s
+							pacman.y-=spd;
+							break;
+						case 68: //  d
+							pacman.x-=spd;
+							break;
+						}
+		            }
+					if(l==walls.length) {l=0;}
+				}
 				
 			}
 
@@ -148,8 +154,13 @@ public class pacman {
             g.setColor(pacman.c);
             g.fillOval(pacman.x,pacman.y,pacman.w,pacman.h);
             
-            g.setColor(wall_1.c);
-            g.fillRect(wall_1.x,wall_1.y, wall_1.w, wall_1.h);
+            for(int m = 0;m<walls.length;m++)
+			{
+            
+	            g.setColor(walls[m].c);
+	            g.fillRect(walls[m].x,walls[m].y, walls[m].w, walls[m].h);
+	            
+	        }
             
         }
     }
