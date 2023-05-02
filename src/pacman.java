@@ -13,11 +13,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.JLabel;
 
 public class pacman {
 
 	private JFrame frame;
-	public int pac_x=220,pac_y=220;
+	public int pac_x=220,pac_y=220,puntosint=0;
+	public String puntostring=(String.valueOf(puntosint)+" puntos");
 	public elemento pacman=new elemento(pac_x,pac_y,20,20,Color.yellow);
 	public elemento wall_1=new elemento(60,0,210,10,Color.blue);
 	public elemento wall_2=new elemento(100,0,210,10,Color.blue);
@@ -56,6 +58,15 @@ public class pacman {
 	public elemento walls[]= {wall_1,wall_2,wall_2_2,wall_2_3,wall_3,wall_4,wall_5,wall_6,wall_7,wall_8,
 			wall_9,wall_10,wall_7_2,wall_8_2,wall_9_2,wall_10_2,wall_7_3,wall_8_3,wall_9_3,wall_10_3,
 			wall_11,wall_12,wall_13,wall_14,wall_dn,wall_up};
+	
+	public elemento pastilla_1=new elemento(4,223,5,5,Color.white);
+	public elemento pastilla_2=new elemento(4,243,5,5,Color.white);
+	public elemento pastilla_3=new elemento(4,263,5,5,Color.white);
+	public elemento pastilla_4=new elemento(4,283,5,5,Color.white);
+	public elemento pastilla_5=new elemento(4,303,5,5,Color.white);
+	public elemento pastilla_6=new elemento(4,323,5,5,Color.white);
+	public elemento pastilla_7=new elemento(4,343,5,5,Color.white);
+	public elemento pastillas[]= {pastilla_1,pastilla_2,pastilla_3,pastilla_4,pastilla_5,pastilla_6,pastilla_7};
 	/**
 	 * Launch the application.
 	 */
@@ -108,7 +119,6 @@ public class pacman {
 
 		frame.setFocusable(true);
 		frame.requestFocus();
-		
 		frame.addKeyListener(new KeyListener() {
 
 			@Override
@@ -164,7 +174,17 @@ public class pacman {
 		            }
 					if(l==walls.length) {l=0;}
 				}
-				
+				for(int l = 0;l<pastillas.length;l++)
+				{
+					if(pacman.colision(pastillas[l])) 
+		            {	
+		            	System.out.println("come");
+		            	pastillas[l]=new elemento(0,0,0,0,Color.black);
+		            	puntosint++;
+		            	puntostring=(String.valueOf(puntosint)+" puntos");
+		            }
+					if(l==pastillas.length) {l=0;}
+				}
 			}
 
 			@Override
@@ -187,6 +207,8 @@ public class pacman {
             super.paintComponent(g);
             g.setColor(Color.black);
             g.fillRect(0,0, 470, 440);
+            g.setColor(Color.white);
+            g.drawString(puntostring, 200,60);
             
             g.setColor(pacman.c);
             g.fillOval(pacman.x,pacman.y,pacman.w,pacman.h);
@@ -196,6 +218,13 @@ public class pacman {
             
 	            g.setColor(walls[m].c);
 	            g.fillRect(walls[m].x,walls[m].y, walls[m].w, walls[m].h);
+	            
+	        }
+            for(int m = 0;m<pastillas.length;m++)
+			{
+            
+	            g.setColor(pastillas[m].c);
+	            g.fillRect(pastillas[m].x,pastillas[m].y, pastillas[m].w, pastillas[m].h);
 	            
 	        }
             
@@ -224,4 +253,5 @@ public class pacman {
 		
 		}
 	}
+	
 }
