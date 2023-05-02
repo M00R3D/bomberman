@@ -19,9 +19,43 @@ public class pacman {
 	private JFrame frame;
 	public int pac_x=220,pac_y=220;
 	public elemento pacman=new elemento(pac_x,pac_y,20,20,Color.yellow);
-	public elemento wall_1=new elemento(20,20,190,10,Color.blue);
-	public elemento wall_2=new elemento(80,20,190,10,Color.blue);
-	public elemento walls[]= {wall_1,wall_2};
+	public elemento wall_1=new elemento(60,0,210,10,Color.blue);
+	public elemento wall_2=new elemento(100,0,210,10,Color.blue);
+	public elemento wall_2_2=new elemento(0,210,10,71,Color.blue);
+	public elemento wall_2_3=new elemento(360,210,10,111,Color.blue);
+
+
+	
+	public elemento wall_3=new elemento(320,0,210,10,Color.blue);
+	public elemento wall_4=new elemento(360,0,210,10,Color.blue);
+	
+	public elemento wall_5=new elemento(100,210,10,230,Color.blue);
+	public elemento wall_6=new elemento(100,0,10,230,Color.blue);
+	
+	public elemento wall_7=new elemento(20,250,10,100,Color.blue);
+	public elemento wall_8=new elemento(20,250,60,10,Color.blue);
+	public elemento wall_9=new elemento(20,310,10,100,Color.blue);
+	public elemento wall_10=new elemento(120,250,70,10,Color.blue);
+	public elemento wall_7_2=new elemento(20,250+100,10,100,Color.blue);
+	public elemento wall_8_2=new elemento(20,250+100,60,10,Color.blue);
+	public elemento wall_9_2=new elemento(20,310+100,10,100,Color.blue);
+	public elemento wall_10_2=new elemento(120,250+100,70,10,Color.blue);
+	public elemento wall_7_3=new elemento(20+130,250+100,10,100,Color.blue);
+	public elemento wall_8_3=new elemento(20+130,250+100,60,10,Color.blue);
+	public elemento wall_9_3=new elemento(20+130,310+100,10,100,Color.blue);
+	public elemento wall_10_3=new elemento(120+130,250+100,70,10,Color.blue);
+	public elemento wall_11=new elemento(20+272,250,10,150,Color.blue);
+	public elemento wall_12=new elemento(10+272,250,160,10,Color.blue);
+	public elemento wall_13=new elemento(20+272,310+90,10,150,Color.blue);
+	public elemento wall_14=new elemento(110+262+60,250,160,10,Color.blue);
+
+	public elemento wall_up=new elemento(0,-10,10,470,Color.blue);
+	public elemento wall_dn=new elemento(0,440,10,470,Color.blue);
+
+	
+	public elemento walls[]= {wall_1,wall_2,wall_2_2,wall_2_3,wall_3,wall_4,wall_5,wall_6,wall_7,wall_8,
+			wall_9,wall_10,wall_7_2,wall_8_2,wall_9_2,wall_10_2,wall_7_3,wall_8_3,wall_9_3,wall_10_3,
+			wall_11,wall_12,wall_13,wall_14,wall_dn,wall_up};
 	/**
 	 * Launch the application.
 	 */
@@ -85,7 +119,8 @@ public class pacman {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				System.out.println(e.getKeyCode()+"  "+e.getKeyChar());
+//				System.out.println(e.getKeyCode()+"  "+e.getKeyChar());
+				System.out.println("  x:"+pacman.x+"  y:"+pacman.y);
 				panel_central.repaint();
 				int spd=3;
 				switch(e.getKeyCode()) 
