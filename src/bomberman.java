@@ -25,13 +25,19 @@ import java.awt.GridLayout;
 
 public class bomberman {
 
-	public BufferedImage spr_wall0 ,spr_wall1,spr_bomb;
+	public BufferedImage spr_wall0 ,spr_wall1,spr_bomb,spr_expl_centro,spr_expl_arriba,spr_expl_abajo,spr_expl_izquierda,spr_expl_derecha;
 	private JFrame frame;
 	public int aux=0,max=4,anchomapa=25,altomapa=13;
+	public int cordExplIzqX0=-64,cordExplIzqY0=-64,cordExplIzqX1=-64,cordExplIzqY1=-64,cordExplIzqX2=-64,cordExplIzqY2=-64;
+	public int cordExplDerX0=-64,cordExplDerY0=-64,cordExplDerX1=-64,cordExplDerY1=-64,cordExplDerX2=-64,cordExplDerY2=-64;
+	public int cordExplArrX0=-64,cordExplArrY0=-64,cordExplArrX1=-64,cordExplArrY1=-64,cordExplArrX2=-64,cordExplArrY2=-64;
+	public int cordExplAbaX0=-64,cordExplAbaY0=-64,cordExplAbaX1=-64,cordExplAbaY1=-64,cordExplAbaX2=-64,cordExplAbaY2=-64;
+	
 	public BufferedImage spr_bomberman_caminando,spr_bomberman_caminando1,spr_bomberman_caminando2,spr_bomberman_caminando3,spr_bomberman_caminando4,spr_bomberman_caminando5;
 	public elemento wall_0 = new elemento(50, 50, 32, 32, spr_wall0, 1);
 	public elemento player = new elemento(32, 32, 25,25,spr_bomberman_caminando);
-	public int bombaX,bombaY,bombaEstar=0;
+	public int bombaX,bombaY,bombaEstar=0,explEstar=0,explX,explY;
+	public elemento[] explosiones= {new elemento(32, 32, 32,32,spr_expl_centro)};
 	public int[][]cuadrados= {
 									{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
 									{2,0,0,1,0,1,0,0,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,0,2},
@@ -105,6 +111,11 @@ public class bomberman {
 			spr_wall0=ImageIO.read(new File("sprite_wall0.png"));
 			spr_wall1=ImageIO.read(new File("sprite_brick0.png"));
 			spr_bomb=ImageIO.read(new File("sprite_bomb0.png"));
+			spr_expl_centro=ImageIO.read(new File("sprite_expl0.png"));
+			spr_expl_arriba=ImageIO.read(new File("sprite_expl1.png"));
+			spr_expl_izquierda=ImageIO.read(new File("sprite_expl2.png"));
+			spr_expl_abajo=ImageIO.read(new File("sprite_expl3.png"));
+			spr_expl_derecha=ImageIO.read(new File("sprite_expl4.png"));
 			wall_0.setBi(spr_wall0);
 			spr_bomberman_caminando=ImageIO.read(new File("sprite_bomberman_walking_00.png"));spr_bomberman_caminando1=ImageIO.read(new File("sprite_bomberman_walking_01.png"));spr_bomberman_caminando2=ImageIO.read(new File("sprite_bomberman_walking_02.png"));spr_bomberman_caminando3=ImageIO.read(new File("sprite_bomberman_walking_03.png"));spr_bomberman_caminando4=ImageIO.read(new File("sprite_bomberman_walking_04.png"));player.setBi(spr_bomberman_caminando);
 				
@@ -187,6 +198,8 @@ public class bomberman {
             			break;
             		}
             		if(aux==max) {aux=0;}
+            		if(bombaEstar==2){explX=(bombaX/32)*32;
+            										explY=(bombaY/32)*32;}
                     panel.repaint();
             	
 //            	System.out.println("animacion"+aux);
@@ -205,7 +218,7 @@ public class bomberman {
 
         @Override
         public void paintComponent(Graphics g) {
-            super.paintComponent(g);
+        	super.paintComponent(g);
             g.setColor(Color.black);
             g.drawImage(wall_0.bi,wall_0.x,wall_0.y,wall_0.w, wall_0.h, this);
             g.drawImage(player.bi,player.x,player.y,player.w, player.h, this);
@@ -215,16 +228,83 @@ public class bomberman {
             	if(elementos[a].getTipo()==1) {g.drawImage(spr_wall1,elementos[a].x,elementos[a].y,elementos[a].w, elementos[a].h, this);}
             	if(elementos[a].getTipo()==2) {g.drawImage(spr_wall0,elementos[a].x,elementos[a].y,elementos[a].w, elementos[a].h, this);}
             	if(elementos[a].getTipo()==3) {g.drawImage(spr_bomb,elementos[a].x,elementos[a].y,elementos[a].w, elementos[a].h, this);}
-            	
+            	if (new elemento(explX-31,explY,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()==0) {
+        			System.out.println("jalo");
+        		}else {
+			        			cordExplIzqX0=explX-32;
+			        			cordExplIzqY0=explY;
+				        			if (new elemento(explX-63,explY,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
+				            			System.out.println("jalo");
+					            		}else {
+					            			cordExplIzqX1=explX-64;
+					            			cordExplIzqY1=explY;
+					            			if (new elemento(explX-95,explY,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
+						            			System.out.println("jalo");
+							            		}else {
+							            			cordExplIzqX2=explX-96;
+							            			cordExplIzqY2=explY;
+							            		}
+					            		}
+        			}
+//            	if (new elemento(explX+32,explY,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
+//        			System.out.println("jalo");
+//        		}else {
+//        			explEstar=1;
+//        		}
+//            	if (new elemento(explX,explY-32,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
+//        			System.out.println("jalo");
+//        		}else {
+//        			explEstar=1;
+//        		}
+//            	if (new elemento(explX,explY+32,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
+//        			System.out.println("jalo");
+//        		}else {
+//        			explEstar=1;
+//        		}
             }
-            if(bombaEstar==1) {g.drawImage(spr_bomb,bombaX,bombaY,20, 20, this);}
-//            while(bombas[0]!=null) { 
-//	            for(int b =0;b<1;b++) 
-//	            {
-//	//            	g.drawRect(elementos[a].x,elementos[a].y,elementos[a].w, elementos[a].h);
-//	            	if(bombas[b].getTipo()==3) {g.drawImage(spr_wall1,bombas[b].x,bombas[b].y,bombas[b].w, bombas[b].h, this);}
-//	            	            	
-//	            }}
+//            for(int a =0;a<explosiones.length-1;a++) 
+//            {
+//            	g.drawImage(explosiones[a].getBi(),explosiones[a].x,explosiones[a].y,explosiones[a].w, explosiones[a].h, this);
+//            }
+            
+            if(bombaEstar==1)
+            {
+            	g.drawImage(spr_bomb,bombaX,bombaY,20, 20, this);
+            	System.out.println(bombaX+" "+bombaY+"        "+(bombaX/32)+" "+(bombaY/32));
+        		Timer timer1 = new Timer();
+                TimerTask explosion = new TimerTask() {
+
+                    @Override
+                    public void run() {
+                    		bombaEstar=2;
+                            panel.repaint();
+                            timer1.cancel();
+                    }};
+                timer1.schedule(explosion,6*1000,100);
+               
+            }else if(bombaEstar==2)
+            {
+            	g.drawImage(spr_expl_centro,explX,explY,32, 32, this);
+            	Timer timer2 = new Timer();
+                TimerTask explosion1 = new TimerTask() {
+
+                    @Override
+                    public void run() {
+                    	bombaEstar=0;
+                    	explEstar=0;
+                    	cordExplIzqX0=0;cordExplIzqX1=0;cordExplIzqX2=0;cordExplIzqY0=0;cordExplIzqY1=0;cordExplIzqY2=0;
+                        panel.repaint();    
+                    	timer2.cancel();
+                    }};
+                timer2.schedule(explosion1,1*1000,1000);
+            }
+            if(explEstar==1) 
+            {
+            	g.drawImage(spr_expl_izquierda,cordExplIzqX0,cordExplIzqY0,32, 32, this);
+            	g.drawImage(spr_expl_izquierda,cordExplIzqX1,cordExplIzqY1,32, 32, this);
+            	g.drawImage(spr_expl_izquierda,cordExplIzqX2,cordExplIzqY2,32, 32, this);
+            }
+            	
         }
     }
 
