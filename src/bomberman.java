@@ -121,9 +121,7 @@ public class bomberman {
 				
 		} catch (IOException e) {e.printStackTrace();}
 		frame.addKeyListener(new KeyListener() {
-			@Override
 			public void keyTyped(KeyEvent e) {}
-			@Override
 			public void keyPressed(KeyEvent e) {
 				System.out.print(e.getKeyCode());
 				switch(e.getKeyCode()) 
@@ -172,7 +170,6 @@ public class bomberman {
 				panel.repaint();
 			}
 			
-			@Override
 			public void keyReleased(KeyEvent e) {}});
 		Timer timer = new Timer();
         TimerTask animacion = new TimerTask() {
@@ -271,7 +268,7 @@ public class bomberman {
             {
             	g.drawImage(spr_bomb,bombaX,bombaY,20, 20, this);
             	System.out.println(bombaX+" "+bombaY+"        "+(bombaX/32)+" "+(bombaY/32));
-        		Timer timer1 = new Timer();
+        		final Timer timer1 = new Timer();
                 TimerTask explosion = new TimerTask() {
 
                     @Override
@@ -285,7 +282,7 @@ public class bomberman {
             }else if(bombaEstar==2)
             {
             	g.drawImage(spr_expl_centro,explX,explY,32, 32, this);
-            	Timer timer2 = new Timer();
+            	final Timer timer2 = new Timer();
                 TimerTask explosion1 = new TimerTask() {
 
                     @Override
@@ -300,6 +297,11 @@ public class bomberman {
             }
             if(explEstar==1) 
             {
+            	//crear un new element(); para cada direccion y si es que colisiona dependiendo el bloque
+            	//se haran mas grandes las dimensiones de los new elementes y dependiendo tambien de su tipo
+            	//		tambien habra un if que verifique si los elementos explosion tocan a los elementos enemigo
+            	//crear los elementos enemigo
+            	//crear las vidas, power ups, tiempo y hud
             	g.drawImage(spr_expl_izquierda,cordExplIzqX0,cordExplIzqY0,32, 32, this);
             	g.drawImage(spr_expl_izquierda,cordExplIzqX1,cordExplIzqY1,32, 32, this);
             	g.drawImage(spr_expl_izquierda,cordExplIzqX2,cordExplIzqY2,32, 32, this);
