@@ -28,17 +28,15 @@ public class bomberman {
 	public BufferedImage spr_wall0 ,spr_wall1,spr_bomb,spr_expl_centro,spr_expl_arriba,spr_expl_abajo,spr_expl_izquierda,spr_expl_derecha;
 	private JFrame frame;
 	public int aux=0,max=4,anchomapa=25,altomapa=13;
-	public int cordExplIzqX0=-64,cordExplIzqY0=-64,cordExplIzqX1=-64,cordExplIzqY1=-64,cordExplIzqX2=-64,cordExplIzqY2=-64;
-	public int cordExplDerX0=-64,cordExplDerY0=-64,cordExplDerX1=-64,cordExplDerY1=-64,cordExplDerX2=-64,cordExplDerY2=-64;
-	public int cordExplArrX0=-64,cordExplArrY0=-64,cordExplArrX1=-64,cordExplArrY1=-64,cordExplArrX2=-64,cordExplArrY2=-64;
-	public int cordExplAbaX0=-64,cordExplAbaY0=-64,cordExplAbaX1=-64,cordExplAbaY1=-64,cordExplAbaX2=-64,cordExplAbaY2=-64;
-	
 	public BufferedImage spr_bomberman_caminando,spr_bomberman_caminando1,spr_bomberman_caminando2,spr_bomberman_caminando3,spr_bomberman_caminando4,spr_bomberman_caminando5;
 	public elemento wall_0 = new elemento(50, 50, 32, 32, spr_wall0, 1);
 	public elemento player = new elemento(32, 32, 25,25,spr_bomberman_caminando);
 	public int bombaX,bombaY,bombaEstar=0,explEstar=0,explX,explY;
-	public elemento[] explosiones;
-	
+	public elemento explosion_superior = new elemento(-64, -64, 32,32,spr_expl_arriba);
+	public elemento explosion_izquierda = new elemento(-64, -64, 32,32,spr_expl_izquierda);
+	public elemento explosion_derecha = new elemento(-64, -64, 32,32,spr_expl_derecha);
+	public elemento explosion_inferior = new elemento(-64, -64, 32,32,spr_expl_abajo);	
+	public elemento[] explosiones={explosion_superior,explosion_izquierda,explosion_derecha,explosion_inferior};
 	public int[][]cuadrados= {
 									{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
 									{2,0,0,1,0,1,0,0,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,0,2},
@@ -119,10 +117,10 @@ public class bomberman {
 			spr_expl_derecha=ImageIO.read(new File("sprite_expl4.png"));
 			wall_0.setBi(spr_wall0);
 			spr_bomberman_caminando=ImageIO.read(new File("sprite_bomberman_walking_00.png"));spr_bomberman_caminando1=ImageIO.read(new File("sprite_bomberman_walking_01.png"));spr_bomberman_caminando2=ImageIO.read(new File("sprite_bomberman_walking_02.png"));spr_bomberman_caminando3=ImageIO.read(new File("sprite_bomberman_walking_03.png"));spr_bomberman_caminando4=ImageIO.read(new File("sprite_bomberman_walking_04.png"));player.setBi(spr_bomberman_caminando);
-//			elemento explosion_superior = new elemento(-64, -64, 32,32,spr_expl_arriba);explosiones[0]=explosion_superior;
-//			elemento explosion_izquierda = new elemento(-64, -64, 32,32,spr_expl_izquierda);explosiones[1]=explosion_izquierda;
-//			elemento explosion_derecha = new elemento(-64, -64, 32,32,spr_expl_derecha);explosiones[2]=explosion_derecha;
-//			elemento explosion_inferior = new elemento(-64, -64, 32,32,spr_expl_abajo);explosiones[3]=explosion_inferior;
+			explosiones[0].setBi(spr_expl_arriba);
+			explosiones[1].setBi(spr_expl_izquierda);
+			explosiones[2].setBi(spr_expl_derecha);
+			explosiones[3].setBi(spr_expl_abajo);
 		} catch (IOException e) {e.printStackTrace();}
 		frame.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {}
@@ -201,6 +199,14 @@ public class bomberman {
             		if(aux==max) {aux=0;}
             		if(bombaEstar==2){explX=(bombaX/32)*32;
             										explY=(bombaY/32)*32;}
+            		 for(int a =0;a<elementos.length;a++) 
+                     {
+            			 if (elementos[a].colision(explosion_derecha)||elementos[a].colision(explosion_izquierda)||elementos[a].colision(explosion_superior)||elementos[a].colision(explosion_inferior)) 
+            			 {
+            				 if(elementos[a].getTipo()==1) {elementos[a].setX(-321);
+            				 elementos[a].setY(-321);}
+            			 }	
+                     }
                     panel.repaint();
             	
 //            	System.out.println("animacion"+aux);
@@ -232,41 +238,14 @@ public class bomberman {
             	if (new elemento(explX-31,explY,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()==0) {
         			System.out.println("jalo");
         		}else {
-			        			cordExplIzqX0=explX-32;
-			        			cordExplIzqY0=explY;
-				        			if (new elemento(explX-63,explY,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
-				            			System.out.println("jalo");
-					            		}else {
-					            			cordExplIzqX1=explX-64;
-					            			cordExplIzqY1=explY;
-					            			if (new elemento(explX-95,explY,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
-						            			System.out.println("jalo");
-							            		}else {
-							            			cordExplIzqX2=explX-96;
-							            			cordExplIzqY2=explY;
-							            		}
-					            		}
+			        		
         			}
-//            	if (new elemento(explX+32,explY,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
-//        			System.out.println("jalo");
-//        		}else {
-//        			explEstar=1;
-//        		}
-//            	if (new elemento(explX,explY-32,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
-//        			System.out.println("jalo");
-//        		}else {
-//        			explEstar=1;
-//        		}
-//            	if (new elemento(explX,explY+32,32,32,spr_expl_centro,3).colision(elementos[a])==true && elementos[a].getTipo()!=0) {
-//        			System.out.println("jalo");
-//        		}else {
-//        			explEstar=1;
-//        		}
+
             }
-//            for(int a =0;a<explosiones.length-1;a++) 
-//            {
-//            	g.drawImage(explosiones[a].getBi(),explosiones[a].x,explosiones[a].y,explosiones[a].w, explosiones[a].h, this);
-//            }
+            for(int a =0;a<explosiones.length;a++) 
+            {
+            	g.drawImage(explosiones[a].getBi(),explosiones[a].x,explosiones[a].y,explosiones[a].w, explosiones[a].h, this);
+            }
             
             if(bombaEstar==1)
             {
@@ -287,33 +266,65 @@ public class bomberman {
             {
             	g.drawImage(spr_expl_centro,explX,explY,32, 32, this);
             	final Timer timer2 = new Timer();
+            	   	
+    		            	//crear un new element(); para cada direccion y si es que colisiona dependiendo el bloque
+    		           
+    		                			explosion_izquierda.setX(explX-96);
+    		                			explosion_izquierda.setW(96);
+    		                			explosion_izquierda.setY(explY);
+    			                	
+    		
+		            				explosion_derecha.setX(explX+32);
+    		                			explosion_derecha.setW(96);
+    		                			explosion_derecha.setY(explY);
+    		                			
+    		                			explosion_superior.setX(explX);
+    		                			explosion_superior.setH(96);
+    		                			explosion_superior.setY(explY-32-64);
+    		                			
+    		                			explosion_inferior.setX(explX);
+    		                			explosion_inferior.setH(96);
+    		                			explosion_inferior.setY(explY+32);
+    			               
+    		            	
+    		            	//se haran mas grandes las dimensiones de los new elementes y dependiendo tambien de su tipo
+
+    		                	//		tambien habra un if que verifique si los elementos explosion tocan a los elementos enemigo
+    		            	//crear los elementos enemigo
+    		            	//crear las vidas, power ups, tiempo y hud
+    		//            	if()asgafsdgadfg
+    	            
+            		panel.repaint();
                 TimerTask explosion1 = new TimerTask() {
 
                     @Override
                     public void run() {
-                    	bombaEstar=0;
                     	explEstar=0;
-                    	cordExplIzqX0=0;cordExplIzqX1=0;cordExplIzqX2=0;cordExplIzqY0=0;cordExplIzqY1=0;cordExplIzqY2=0;
-                        panel.repaint();    
+                    	bombaEstar=0;
                     	timer2.cancel();
                     }};
-                timer2.schedule(explosion1,1*1000,1000);
+                timer2.schedule(explosion1,5*100,1000);
             }
-            if(explEstar==1) 
+            if(bombaEstar==0) 
             {
-            	//crear un new element(); para cada direccion y si es que colisiona dependiendo el bloque
-            
-            	//se haran mas grandes las dimensiones de los new elementes y dependiendo tambien de su tipo
-            	//		tambien habra un if que verifique si los elementos explosion tocan a los elementos enemigo
-            	//crear los elementos enemigo
-            	//crear las vidas, power ups, tiempo y hud
-//            	if()asgafsdgadfg
+            	reestablecerExpl();
+                panel.repaint();    
+
             }
             	
         }
     }
 
+	public void reestablecerExpl() 
+	{
+		explosiones[0].setX(-64);explosiones[0].setY(-64);explosiones[1].setX(-64);explosiones[1].setY(-64);
+    	explosiones[0].setW(32);    	explosiones[0].setH(32);
+    	explosiones[1].setW(32);    	explosiones[1].setH(32);
+    	explosiones[2].setW(32);    	explosiones[2].setH(32);
+    	explosiones[3].setW(32);    	explosiones[3].setH(32);
 
+    	explosiones[2].setX(-64);explosiones[2].setY(-64);explosiones[3].setX(-64);explosiones[3].setY(-64);
+	}
 	public class elemento 
 	{
 		//tipo 0:vacio		tipo 1:bloque indestructible		 tipo 2 :bloque destructible
