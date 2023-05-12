@@ -42,6 +42,10 @@ public class bomberman {
 	public elemento explosion_izquierda = new elemento(-64, -64, 32,32,spr_expl_izquierda);
 	public elemento explosion_derecha = new elemento(-64, -64, 32,32,spr_expl_derecha);
 	public elemento explosion_inferior = new elemento(-64, -64, 32,32,spr_expl_abajo);	
+	public elemento enemigo1 = new elemento(11*32, 5*32, 32,32,spr_expl_abajo);
+	public elemento enemigo2 = new elemento(16*32, 7*32, 32,32,spr_expl_abajo);
+	public elemento enemigo3 = new elemento(18*32, 3*32, 32,32,spr_expl_abajo);
+
 	public elemento[] explosiones={explosion_superior,explosion_izquierda,explosion_derecha,explosion_inferior};
 	public int[][]cuadrados= {
 									{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
@@ -128,6 +132,10 @@ public class bomberman {
 			explosiones[1].setBi(spr_expl_izquierda);
 			explosiones[2].setBi(spr_expl_derecha);
 			explosiones[3].setBi(spr_expl_abajo);
+			enemigo1.setBi(spr_bomb);
+			enemigo2.setBi(spr_bomb);
+			enemigo3.setBi(spr_bomb);
+
 		} catch (IOException e) {e.printStackTrace();}
 		frame.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {}
@@ -176,6 +184,8 @@ public class bomberman {
 							}
 			            }
 	            }
+
+				
 				panel.repaint();
 			}
 			
@@ -203,6 +213,53 @@ public class bomberman {
             			player.setBi(spr_bomberman_caminando4);
             			break;
             		}
+            		
+            		if(enemigo1.getX()<player.getX()) 
+            		{
+            			enemigo1.setX(enemigo1.getX()+2);
+            		}
+    				if(enemigo1.getX()>player.getX()) 
+            		{
+            			enemigo1.setX(enemigo1.getX()-2);
+            		}if(enemigo1.getY()<player.getY()) 
+            		{
+            			enemigo1.setY(enemigo1.getY()+2);
+            		}
+    				if(enemigo1.getY()>player.getY()) 
+            		{
+            			enemigo1.setY(enemigo1.getY()-2);
+            		}
+    				if(enemigo2.getX()<player.getX()) 
+            		{
+            			enemigo2.setX(enemigo2.getX()+1);
+            		}
+    				if(enemigo2.getX()>player.getX()) 
+            		{
+            			enemigo2.setX(enemigo2.getX()-1);
+            		}if(enemigo2.getY()<player.getY()) 
+            		{
+            			enemigo2.setY(enemigo2.getY()+1);
+            		}
+    				if(enemigo2.getY()>player.getY()) 
+            		{
+            			enemigo2.setY(enemigo2.getY()-1);
+            		}
+    				if(enemigo3.getX()<player.getX()) 
+            		{
+            			enemigo3.setX(enemigo3.getX()+1);
+            		}
+    				if(enemigo3.getX()>player.getX()) 
+            		{
+            			enemigo3.setX(enemigo3.getX()-1);
+            		}if(enemigo3.getY()<player.getY()) 
+            		{
+            			enemigo3.setY(enemigo3.getY()+1);
+            		}
+    				if(enemigo3.getY()>player.getY()) 
+            		{
+            			enemigo3.setY(enemigo3.getY()-1);
+            		}
+    				
             		if(aux==max) {aux=0;}
             		if(bombaEstar==2){explX=(bombaX/32)*32;
             										explY=(bombaY/32)*32;}
@@ -236,6 +293,10 @@ public class bomberman {
             g.setColor(Color.black);
             g.drawImage(wall_0.bi,wall_0.x,wall_0.y,wall_0.w, wall_0.h, this);
             g.drawImage(player.bi,player.x,player.y,player.w, player.h, this);
+            g.drawImage(enemigo1.bi,enemigo1.x,enemigo1.y,enemigo1.w, enemigo1.h, this);
+            g.drawImage(enemigo2.bi,enemigo2.x,enemigo2.y,enemigo2.w, enemigo2.h, this);
+            g.drawImage(enemigo3.bi,enemigo3.x,enemigo3.y,enemigo3.w, enemigo3.h, this);
+
             for(int a =0;a<elementos.length-1;a++) 
             {
 //            	g.drawRect(elementos[a].x,elementos[a].y,elementos[a].w, elementos[a].h);
