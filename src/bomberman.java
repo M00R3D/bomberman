@@ -259,7 +259,19 @@ public class bomberman {
             		{
             			enemigo3.setY(enemigo3.getY()-1);
             		}
-    				
+    				if(explosion_derecha.colision(enemigo1)){enemigo1.setW(0);enemigo1.setH(0);}
+    				if(explosion_izquierda.colision(enemigo1)){enemigo1.setW(0);enemigo1.setH(0);}
+    				if(explosion_inferior.colision(enemigo1)) {enemigo1.setW(0);enemigo1.setH(0);}
+    				if(explosion_superior.colision(enemigo1)){enemigo1.setW(0);enemigo1.setH(0);}
+    				if(explosion_derecha.colision(enemigo2)) {enemigo2.setW(0);enemigo2.setH(0);}
+    				if(explosion_izquierda.colision(enemigo2)){enemigo2.setW(0);enemigo2.setH(0);}
+    				if(explosion_inferior.colision(enemigo2)){enemigo2.setW(0);enemigo2.setH(0);}
+    				if(explosion_superior.colision(enemigo2)) {enemigo2.setW(0);enemigo2.setH(0);}
+    				if(explosion_derecha.colision(enemigo3)){enemigo3.setW(0);enemigo3.setH(0);}
+    				if(explosion_izquierda.colision(enemigo3)) {enemigo3.setW(0);enemigo3.setH(0);}
+    				if(explosion_inferior.colision(enemigo3)) {enemigo3.setW(0);enemigo3.setH(0);}
+    				if(explosion_superior.colision(enemigo3)) {enemigo3.setW(0);enemigo3.setH(0);}
+    			
             		if(aux==max) {aux=0;}
             		if(bombaEstar==2){explX=(bombaX/32)*32;
             										explY=(bombaY/32)*32;}
