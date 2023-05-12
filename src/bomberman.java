@@ -19,6 +19,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
@@ -109,6 +115,7 @@ public class bomberman {
 		frame.requestFocus();
 		panel.add(new MyGraphics());
 		try {
+			ReproducirSonido("BombermanMusica.wav");
 			spr_wall0=ImageIO.read(new File("sprite_wall0.png"));
 			spr_wall1=ImageIO.read(new File("sprite_brick0.png"));
 			spr_bomb=ImageIO.read(new File("sprite_bomb0.png"));
@@ -312,6 +319,17 @@ public class bomberman {
             	
         }
     }
+	
+	 public void ReproducirSonido(String nombreSonido){
+	        try {
+	         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
+	         Clip clip = AudioSystem.getClip();
+	         clip.open(audioInputStream);
+	         clip.start();
+	        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+	          System.out.println("Error al reproducir el sonido.");
+	        }
+	    }
 
 
 	public class elemento 
