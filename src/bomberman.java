@@ -31,7 +31,7 @@ import java.awt.GridLayout;
 
 public class bomberman {
 
-	public BufferedImage spr_wall0 ,spr_wall1,spr_bomb,spr_expl_centro,spr_expl_arriba,spr_expl_abajo,spr_expl_izquierda,spr_expl_derecha;
+	public BufferedImage spr_wall0 ,spr_wall1,spr_bomb,spr_expl_centro,spr_expl_arriba,spr_expl_abajo,spr_expl_izquierda,spr_expl_derecha,spr_enemigo;
 	private JFrame frame;
 	public int aux=0,max=4,anchomapa=25,altomapa=13;
 	public BufferedImage spr_bomberman_caminando,spr_bomberman_caminando1,spr_bomberman_caminando2,spr_bomberman_caminando3,spr_bomberman_caminando4,spr_bomberman_caminando5;
@@ -42,9 +42,9 @@ public class bomberman {
 	public elemento explosion_izquierda = new elemento(-64, -64, 32,32,spr_expl_izquierda);
 	public elemento explosion_derecha = new elemento(-64, -64, 32,32,spr_expl_derecha);
 	public elemento explosion_inferior = new elemento(-64, -64, 32,32,spr_expl_abajo);	
-	public elemento enemigo1 = new elemento(11*32, 5*32, 32,32,spr_expl_abajo);
-	public elemento enemigo2 = new elemento(16*32, 7*32, 32,32,spr_expl_abajo);
-	public elemento enemigo3 = new elemento(18*32, 3*32, 32,32,spr_expl_abajo);
+	public elemento enemigo1 = new elemento(11*32, 5*32, 32,32,spr_enemigo);
+	public elemento enemigo2 = new elemento(16*32, 7*32, 32,32,spr_enemigo);
+	public elemento enemigo3 = new elemento(18*32, 3*32, 32,32,spr_enemigo);
 
 	public elemento[] explosiones={explosion_superior,explosion_izquierda,explosion_derecha,explosion_inferior};
 	public int[][]cuadrados= {
@@ -108,7 +108,7 @@ public class bomberman {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(0, 0, 800, 416);
+		frame.setBounds(0, 0, 812, 452);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.setBackground(new Color(255, 128, 192));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -121,20 +121,21 @@ public class bomberman {
 			spr_wall0=ImageIO.read(new File("sprite_wall0.png"));
 			spr_wall1=ImageIO.read(new File("sprite_brick0.png"));
 			spr_bomb=ImageIO.read(new File("sprite_bomb0.png"));
+			spr_enemigo = ImageIO.read(new File("Enemigo.png"));
 			spr_expl_centro=ImageIO.read(new File("sprite_expl0.png"));
 			spr_expl_arriba=ImageIO.read(new File("sprite_expl1.png"));
 			spr_expl_izquierda=ImageIO.read(new File("sprite_expl2.png"));
 			spr_expl_abajo=ImageIO.read(new File("sprite_expl3.png"));
 			spr_expl_derecha=ImageIO.read(new File("sprite_expl4.png"));
-			wall_0.setBi(spr_wall0);
+//			wall_0.setBi(spr_wall0);
 			spr_bomberman_caminando=ImageIO.read(new File("sprite_bomberman_walking_00.png"));spr_bomberman_caminando1=ImageIO.read(new File("sprite_bomberman_walking_01.png"));spr_bomberman_caminando2=ImageIO.read(new File("sprite_bomberman_walking_02.png"));spr_bomberman_caminando3=ImageIO.read(new File("sprite_bomberman_walking_03.png"));spr_bomberman_caminando4=ImageIO.read(new File("sprite_bomberman_walking_04.png"));player.setBi(spr_bomberman_caminando);
 			explosiones[0].setBi(spr_expl_arriba);
 			explosiones[1].setBi(spr_expl_izquierda);
 			explosiones[2].setBi(spr_expl_derecha);
 			explosiones[3].setBi(spr_expl_abajo);
-			enemigo1.setBi(spr_bomb);
-			enemigo2.setBi(spr_bomb);
-			enemigo3.setBi(spr_bomb);
+			enemigo1.setBi(spr_enemigo);
+			enemigo2.setBi(spr_enemigo);
+			enemigo3.setBi(spr_enemigo);
 
 		} catch (IOException e) {e.printStackTrace();}
 		frame.addKeyListener(new KeyListener() {
@@ -296,7 +297,7 @@ public class bomberman {
         private static final long serialVersionUID = 1L;
 
         MyGraphics() {
-            setPreferredSize(new Dimension(800, 416));
+            setPreferredSize(new Dimension(812, 452));
         }
 
         @Override
