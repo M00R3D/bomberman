@@ -307,7 +307,7 @@ public class bomberman {
             	//		tambien habra un if que verifique si los elementos explosion tocan a los elementos enemigo
             	//crear los elementos enemigo
             	//crear las vidas, power ups, tiempo y hud
-//            	if()
+//            	if()asgafsdgadfg
             }
             	
         }
